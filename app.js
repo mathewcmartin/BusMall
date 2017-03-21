@@ -1,36 +1,69 @@
+'use strict';
 
-var newPhotoArray = [];
-var oldPhotoArray = [];
-var randomPhotoArray = [];
+var itemsListArray = [];
 
-var = new item ('bag', 'assets/bag.jpg');
-var = new item ('banana', 'assets/banana.jpg');
-var = new item ('bathroom', 'assets/bathroom.jpg');
-var = new item ('boots', 'assets/boots.jpg');
-var = new item ('breakfast', 'assets/breakfast.jpg');
-var = new item ('bubblegum', 'assets/bubblegum.jpg');
-var = new item ('chair', 'assets/chair.jpg');
-var = new item ('cthulhu', 'assets/cthulhu.jpg');
-var = new item ('dog-duck', 'assets/dog-duck.jpg');
-var = new item ('dragon', 'assets/dragon.jpg');
-var = new item ('pen', 'assets/pen.jpg');
-var = new item ('pet-sweep', 'assets/pet-sweep.jpg');
-var = new item ('scissors', 'assets/scissors.jpg');
-var = new item ('shark', 'assets/shark.jpg');
-var = new item ('sweep', 'assets/sweep.png');
-var = new item ('tauntaun', 'assets/tauntaun.jpg');
-var = new item ('unicorn', 'assets/unicorn.jpg');
-var = new item ('usb', 'assets/usb.gif');
-var = new item ('water-can', 'assets/water-can.jpg');
-var = new item ('wine-glass', 'assets/wine-glass.jpg');
+function Item(itemName, itemPath){
+  this.itemName = itemName;
+  this.itemPath = itemPath;
+  this.itemShownTotal = 0;
+  this.numberOfTimesClicked = 0;
+  itemsListArray.push(this);
+}
+var a = new Item ('bag', 'assets/bag.jpg');
+var b = new Item ('banana', 'assets/banana.jpg');
+var c = new Item ('bathroom', 'assets/bathroom.jpg');
+var d = new Item ('boots', 'assets/boots.jpg');
+var e = new Item ('breakfast', 'assets/breakfast.jpg');
+var f = new Item ('bubblegum', 'assets/bubblegum.jpg');
+var g = new Item ('chair', 'assets/chair.jpg');
+var h = new Item ('cthulhu', 'assets/cthulhu.jpg');
+var i = new Item ('dog-duck', 'assets/dog-duck.jpg');
+var j = new Item ('dragon', 'assets/dragon.jpg');
+var k = new Item ('pen', 'assets/pen.jpg');
+var l = new Item ('pet-sweep', 'assets/pet-sweep.jpg');
+var m = new Item ('scissors', 'assets/scissors.jpg');
+var n = new Item ('shark', 'assets/shark.jpg');
+var o = new Item ('sweep', 'assets/sweep.png');
+var p = new Item ('tauntaun', 'assets/tauntaun.jpg');
+var q = new Item ('unicorn', 'assets/unicorn.jpg');
+var r = new Item ('usb', 'assets/usb.gif');
+var s = new Item ('water-can', 'assets/water-can.jpg');
+var t = new Item ('wine-glass', 'assets/wine-glass.jpg');
 
-function Photo(photoName, photoPath, photoID) {
-  this.name = photoName;
-  this.path = photoPath;
-  this.uniqueID = photoID;
+function randomItemSelectionFunc(){
+  return Math.floor(Math.random() * (itemsListArray.length));
+};
+
+var previouslyShownUserPageArray = [];
+
+function randomPictureGenerator(){
+  var currentlyShownUserPageArray = [];
+  while (currentlyShownUserPageArray.length < 3) {
+    var randomItemSelectionVar = randomItemSelectionFunc();
+    if(!previouslyShownUserPageArray.includes(randomItemSelectionVar) && !currentlyShownUserPageArray.includes(randomItemSelectionVar)){
+      currentlyShownUserPageArray.push(randomItemSelectionVar);
+    }
+  }
+  previouslyShownUserPageArray = currentlyShownUserPageArray;
+  var imageLeft = itemsListArray[currentlyShownUserPageArray[0]].itemPath;
+  var imageCenter = itemsListArray[currentlyShownUserPageArray[1]].itemPath;
+  var imageRight = itemsListArray[currentlyShownUserPageArray[2]].itemPath;
+  console.log('current' + currentlyShownUserPageArray);
+  document.getElementById('image1').src = imageLeft;
+  document.getElementById('image2').src = imageCenter;
+  document.getElementById('image3').src = imageRight;
 }
 
+randomPictureGenerator();
 
-Math.Floor(Math.Random()) * (randomPhotoArray.length)
-
+function getEventsList($obj) {
+  var ev = new Array(),
+    events = $obj.data('events'),
+    i;
+  for(i in events) { ev.push(i); }
+  return ev.join(' ');
 }
+
+$obj.on(getEventsList($obj), function(e) {
+  console.log(e);
+});
