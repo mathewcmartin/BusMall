@@ -2,14 +2,14 @@
 
 var itemsListArray = [];
 var totalClicks = 0;
-var image1 = document.getElementById(image1);
-var image2 = document.getElementById(image2);
-var image3 = document.getElementById(image3);
+var image1 = document.getElementById('image1');
+var image2 = document.getElementById('image2');
+var image3 = document.getElementById('image3');
 
 function Item(itemName, itemPath){
   this.itemName = itemName;
   this.itemPath = itemPath;
-  numberOfTimesClicked = 0;
+  this.itemClick = 0;
   this.itemShownTotal = 0;
   itemsListArray.push(this);
 }
@@ -44,22 +44,29 @@ function randomPictureGenerator(){
   var currentlyShownUserPageArray = [];
   while (currentlyShownUserPageArray.length < 3) {
     var randomItemSelectionVar = randomItemSelectionFunc();
-    if(!previouslyShownUserPageArray.includes(randomItemSelectionVar) && !currentlyShownUserPageArray.includes(randomItemSelectionVar)){
+    if (!previouslyShownUserPageArray.includes(randomItemSelectionVar) && !currentlyShownUserPageArray.includes(randomItemSelectionVar)){
       currentlyShownUserPageArray.push(randomItemSelectionVar);
     }
   }
+  var prod1 = itemsListArray[currentlyShownUserPageArray[0]];
+  var prod2 = itemsListArray[currentlyShownUserPageArray[1]];
+  var prod3 = itemsListArray[currentlyShownUserPageArray[2]];
+  image1.src = prod1.itemPath;
+  image2.src = prod2.itemPath;
+  image3.src = prod3.itemPath;
+
+  image1.alt = currentlyShownUserPageArray[0];
+  image2.alt = currentlyShownUserPageArray[1];
+  image3.alt = currentlyShownUserPageArray[2];
+
   previouslyShownUserPageArray = currentlyShownUserPageArray;
-  var imageLeft = itemsListArray[currentlyShownUserPageArray[0]].itemPath;
-  var imageCenter = itemsListArray[currentlyShownUserPageArray[1]].itemPath;
-  var imageRight = itemsListArray[currentlyShownUserPageArray[2]].itemPath;
-  console.log('current' + currentlyShownUserPageArray);
-  document.getElementById('image1').src = imageLeft;
-  document.getElementById('image2').src = imageCenter;
-  document.getElementById('image3').src = imageRight;
-  prod1.imageShown++;
-  prod2.imageShown++;
-  prod3.imageShown++;
+
+  prod1.itemShownTotal++;
+  prod2.itemShownTotal++;
+  prod3.itemShownTotal++;
 };
+randomPictureGenerator();
+var clickLimit = 25;
 
 function handleTheClick(){
   randomPictureGenerator();
@@ -67,25 +74,28 @@ function handleTheClick(){
 
   console.log(this);
   var productIndex = this.alt; // get the index of the product clicked
-  productIndex(productIndex).itemClick++;
-};
-var clickLimit = 25;
-if (totalClicks === clickLimit){
-  image1.removeEventListener('click', handleTheClick);
-  image2.removeEventListener('click', handleTheClick);
-  image3.removeEventListener('click', handleTheClick);
-  productClicks();
-  }
+  itemsListArray[productIndex].itemClick++;
 
+  if (totalClicks === clickLimit){
+    image1.removeEventListener('click', handleTheClick);
+    image2.removeEventListener('click', handleTheClick);
+    image3.removeEventListener('click', handleTheClick);
+    productClicks();
+  }
+};
 
 image1.addEventListener('click', handleTheClick);
 image2.addEventListener('click', handleTheClick);
 image3.addEventListener('click', handleTheClick);
 
-var content = document.createElement('content');
-var ul = document.createElement('ul');
-content.appendChild(ul);
-for (var i = 0; i < productArray.length; i++) {
-  var li = document.createElement('li');
-
+function productClicks(){
+  var content = document.getElementById('content');
+  var ul = document.createElement('ul');
+  content.appendChild(ul);
+  for (var i = 0; i < itemsListArray.length; i++) {
+    var li = document.createElement('li');
+    var dataStore = itemsListArray[i].itemClick + ' clicks for ' + itemsListArray[i].itemName;
+    li.innerText = dataStore;
+    ul.appendChild(li);
+  }
 }
