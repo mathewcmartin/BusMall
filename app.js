@@ -55,15 +55,3 @@ function randomPictureGenerator(){
 }
 
 randomPictureGenerator();
-
-function getEventsList($obj) {
-  var ev = new Array(),
-    events = $obj.data('events'),
-    i;
-  for(i in events) { ev.push(i); }
-  return ev.join(' ');
-}
-
-$obj.on(getEventsList($obj), function(e) {
-  console.log(e);
-});
