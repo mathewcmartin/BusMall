@@ -6,7 +6,7 @@ var labelNameArray = [];
 var labelClickArray = [];
 
 var totalClicks = 0;
-var clickLimit = 5;
+var clickLimit = 25;
 // var image1 = document.getElementById('image1');
 // var image2 = document.getElementById('image2');
 // var image3 = document.getElementById('image3');
@@ -74,8 +74,6 @@ randomPictureGenerator();
 function handleTheClick(){
   randomPictureGenerator();
   totalClicks++;
-
-  console.log(this);
   var productIndex = this.alt; // get the index of the product clicked
   itemsListArray[productIndex].itemClick++;
 
