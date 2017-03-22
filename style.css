@@ -1,6 +1,6 @@
 header {
-  border: 1px solid #999;
-  height: 200px;
+  /*border: 1px solid #999;
+  height: 200px;*/
 }
 body {
   margin: 0 auto;
@@ -8,7 +8,7 @@ body {
   display: block;
 }
 #busmall {
-  font-family: Martel-script;
+  font-family: Rancho;
   font-size: 4em;
 }
 .navbar {
@@ -20,18 +20,26 @@ body {
     margin-left: 30%;
     margin-right: 30%;
     margin-bottom: 0;
-    font-family: Martel-script;
-    font-size: .9em;
+    font-family: Rancho;
+    font-size: 1.3em;
   }
+main {
+  max-width: 75%;
+  margin-left: 15%;
+  position: relative;
+  display: inline;
+
+}
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow: hidden;
-  background-color: #333;
+  /*overflow: hidden;*/
+  background-color: #999;
 }
 li {
   float: left;
+  padding: 5px;
   }
 li a {
   display: block;
@@ -40,17 +48,30 @@ li a {
   padding: 14px 16px;
   text-decoration: none;
 }
+#content {
+  padding: 5px;
+  font-family: rancho;
+  font-size: 1.3em;
+  max-width: 75%;
+}
+canvas {
+    border-width: 5px;
+    border-style: dashed;
+    border-color: rgba(20, 126, 239, 0.50)
+}
 a {
   padding: 8px;
   background-color: #dddddd;
 }
+
 #container {
-  margin-left: 5%;
+  margin-left: 10%;
   max-width: 100%;
   float: left;
 }
 .flow-left {
   float: left;
+
 }
 #image1 {
 }
