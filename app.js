@@ -1,13 +1,24 @@
 'use strict';
 
 var itemsListArray = [];
+var prevImgIndexes = [];
+var labelArray = [];
+var clickDataArray = [];
+
+var totalClicks = 0;
+var clickLimit = 25;
+// var image1 = document.getElementById('image1');
+// var image2 = document.getElementById('image2');
+// var image3 = document.getElementById('image3');
 
 function Item(itemName, itemPath){
   this.itemName = itemName;
   this.itemPath = itemPath;
+  this.itemNumberClicked = 0;
   this.itemShownTotal = 0;
-  this.numberOfTimesClicked = 0;
+  labelArray.push(itemName);
   itemsListArray.push(this);
+  // this.itemNumberClicked = 0;.
 }
 var a = new Item ('bag', 'assets/bag.jpg');
 var b = new Item ('banana', 'assets/banana.jpg');
@@ -30,28 +41,91 @@ var r = new Item ('usb', 'assets/usb.gif');
 var s = new Item ('water-can', 'assets/water-can.jpg');
 var t = new Item ('wine-glass', 'assets/wine-glass.jpg');
 
-function randomItemSelectionFunc(){
+function randomImgIndex(){
   return Math.floor(Math.random() * (itemsListArray.length));
 };
-
-var previouslyShownUserPageArray = [];
-
-function randomPictureGenerator(){
-  var currentlyShownUserPageArray = [];
-  while (currentlyShownUserPageArray.length < 3) {
-    var randomItemSelectionVar = randomItemSelectionFunc();
-    if(!previouslyShownUserPageArray.includes(randomItemSelectionVar) && !currentlyShownUserPageArray.includes(randomItemSelectionVar)){
-      currentlyShownUserPageArray.push(randomItemSelectionVar);
+function randomPicGenerate(){
+  var currentImgIndexes = [];
+  while (currentImgIndexes.length < 3) {
+    var randomImgSelectVar = randomImgIndex();
+    if (!prevImgIndexes.includes(randomImgSelectVar) && !currentImgIndexes.includes(randomImgSelectVar)){
+      currentImgIndexes.push(randomImgSelectVar);
     }
   }
-  previouslyShownUserPageArray = currentlyShownUserPageArray;
-  var imageLeft = itemsListArray[currentlyShownUserPageArray[0]].itemPath;
-  var imageCenter = itemsListArray[currentlyShownUserPageArray[1]].itemPath;
-  var imageRight = itemsListArray[currentlyShownUserPageArray[2]].itemPath;
-  console.log('current' + currentlyShownUserPageArray);
-  document.getElementById('image1').src = imageLeft;
-  document.getElementById('image2').src = imageCenter;
-  document.getElementById('image3').src = imageRight;
+  var imageLeft = itemsListArray[currentImgIndexes[0]];
+  var imageCenter = itemsListArray[currentImgIndexes[1]];
+  var imageRight = itemsListArray[currentImgIndexes[2]];
+  image1.src = imageLeft.itemPath;
+  image2.src = imageCenter.itemPath;
+  image3.src = imageRight.itemPath;
+  prevImgIndexes = currentImgIndexes;
+  image1.alt = currentImgIndexes[0];
+  image2.alt = currentImgIndexes[1];
+  image3.alt = currentImgIndexes[2];
+
+
+  imageLeft.itemShownTotal++;
+  imageCenter.itemShownTotal++;
+  imageRight.itemShownTotal++;
+}
+randomPicGenerate();
+
+function clickHandle(event){
+  randomPicGenerate();
+  totalClicks++;
+  var productIndex = this.alt; // get the index of the product clicked
+  itemsListArray[productIndex].itemNumberClicked++;
+
+  if (totalClicks === clickLimit){
+    localStorage.newClick = JSON.stringify(itemsListArray);
+    image1.removeEventListener('click', clickHandle);
+    image2.removeEventListener('click', clickHandle);
+    image3.removeEventListener('click', clickHandle);
+    productClicks();
+  }
+}
+if (localStorage.newClick){
+  var newClickings = JSON.parse(localStorage.newClick);
+  for (var i = 0; i < newClickings.length; i++) {
+    itemsListArray[i].itemNumberClicked = newClickings[i].itemNumberClicked;
+  }
 }
 
-randomPictureGenerator();
+image1.addEventListener('click', clickHandle);
+image2.addEventListener('click', clickHandle);
+image3.addEventListener('click', clickHandle);
+
+function productClicks(){
+  var content = document.getElementById('content');
+  var ul = document.createElement('ul');
+  content.appendChild(ul);
+  for (var i = 0; i < itemsListArray.length; i++) {
+    clickDataArray.push(itemsListArray[i].itemNumberClicked);
+  }
+
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+
+  var data = {
+    labels: labelArray,
+    datasets: [{
+      label: 'Times Clicked',
+      data: clickDataArray,
+      backgroundColor: 'red'
+    }]
+  };
+
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+          }
+        }]
+      }
+    }
+  });
+}

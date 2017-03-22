@@ -5,9 +5,11 @@
     <link rel="stylesheet" type="text/css"
           href="https://fonts.googleapis.com/css?family=Martel+script">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" charset="utf-8"></script>
     <title>
     </title>
   </head>
+  <body>
   <header>
     <div class="navbar">
       <p id="busmall">BusMall</p>
@@ -17,9 +19,7 @@
       </ul>
     </div>
   </header>
-  <body>
     <section>
-      <hr></hr>
     </section>
     <section id="container">
         <div class="flow-left">
@@ -30,6 +30,9 @@
      </section>
      <div id="big">
      </div>
+     <div id="content">
+      <canvas id="canvas" width="300" height="150"></canvas>
+      </div>
         <script src="app.js" type='text/Javascript'></script>
   </body>
 </html>

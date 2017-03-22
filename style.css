@@ -8,7 +8,7 @@ body {
   display: block;
 }
 #busmall {
-  font-family: Martel-script;
+  font-family: Rancho;
   font-size: 4em;
 }
 .navbar {
@@ -20,7 +20,7 @@ body {
     margin-left: 30%;
     margin-right: 30%;
     margin-bottom: 0;
-    font-family: Martel-script;
+    font-family: Rancho;
     font-size: .9em;
   }
 ul {
@@ -28,7 +28,7 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  background-color: #999;
 }
 li {
   float: left;
@@ -45,7 +45,7 @@ a {
   background-color: #dddddd;
 }
 #container {
-  margin-left: 5%;
+  margin-left: 10%;
   max-width: 100%;
   float: left;
 }
