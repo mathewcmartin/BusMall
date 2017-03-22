@@ -5,8 +5,14 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple"></link>
     <link rel="stylesheet" href="style.css"></link>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
-    <title>
-    </title>
+    <meta charset="utf-8">
+    <title></title>
+      <style media="screen">
+        canvas {
+          border: thin solid red;
+        }
+        </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" charset="utf-8"></script>
   </head>
   <header>
     <div class="navbar">
@@ -18,21 +24,28 @@
     </div>
   </header>
   <body>
-    <main>
-      <content id="content"></content>
-    </main>
     <section>
       <hr></hr>
     </section>
     <section id="container">
         <div class="flow-left">
           <img id="image1" src ="http://placehold.it/300" width="300">
+        </div>
+        <div class="flow-left">
           <img id="image2" src ="http://placehold.it/300" width="300">
+        </div>
+        <div class="flow-left">
           <img id="image3" src ="http://placehold.it/300" width="300">
         </div>
+     </section>
+     <section>
+       <main>
+         <content id="content"></content>
+       </main>
      </section>
      <div id="big">
      </div>
         <script src="app.js" type='text/Javascript'></script>
+        <canvas id="canvas" width="500" height="300"></canvas>
   </body>
 </html>

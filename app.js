@@ -66,7 +66,7 @@ function randomPictureGenerator(){
   prod3.itemShownTotal++;
 };
 randomPictureGenerator();
-var clickLimit = 25;
+var clickLimit = 5;
 
 function handleTheClick(){
   randomPictureGenerator();
@@ -99,3 +99,29 @@ function productClicks(){
     ul.appendChild(li);
   }
 }
+
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+var data = {
+  labels: itemsListArray,
+  datasets: [{
+    label: 'Times Clicked',
+    data: itemsListArray,
+    backgroundColor: 'red'
+  }]
+};
+
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: data,
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero:true
+        }
+      }]
+    }
+  }
+});

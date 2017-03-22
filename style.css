@@ -26,12 +26,15 @@ body {
 main {
   max-width: 75%;
   margin-left: 15%;
+  position: relative;
+  display: inline;
+
 }
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  /*overflow: hidden;*/
   background-color: #999;
 }
 li {
@@ -50,7 +53,11 @@ li a {
   font-family: rancho;
   font-size: 1.3em;
   max-width: 75%;
-
+}
+canvas {
+    border-width: 5px;
+    border-style: dashed;
+    border-color: rgba(20, 126, 239, 0.50)
 }
 a {
   padding: 8px;
@@ -64,6 +71,7 @@ a {
 }
 .flow-left {
   float: left;
+
 }
 #image1 {
 }
