@@ -2,36 +2,40 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css"
-          href="https://fonts.googleapis.com/css?family=Martel+script">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Martel+script">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" charset="utf-8"></script></script>
     <title>
     </title>
   </head>
   <body>
-  <header>
+    <script src="chart.js"></script>
+    <header>
     <div class="navbar">
       <p id="busmall">BusMall</p>
       <p>Choose which product, of the three displayed images, that you would be most likely to purchase. Click on the image you like best each time they are displayed until the test completes. Thanks!</p>
-      <ul>
+      <!-- <ul>
         <li></li>
-      </ul>
+      </ul> -->
     </div>
   </header>
-    <section>
-    </section>
+    <!-- <section> -->
+    <!-- </section> -->
     <section id="container">
         <div class="flow-left">
           <img id="image1" src ="http://placehold.it/300" width="300">
+        </div>
+        <div class="flow-left">
           <img id="image2" src ="http://placehold.it/300" width="300">
+        <div class="flow-left">
+        </div>
           <img id="image3" src ="http://placehold.it/300" width="300">
         </div>
      </section>
-     <div id="big">
-     </div>
-     <div id="content">
-      <canvas id="canvas" width="300" height="150"></canvas>
+     <!-- <div id="big">
+     </div> -->
+      <div id="content">
+        <canvas id="canvas"></canvas>
       </div>
         <script src="app.js" type='text/Javascript'></script>
   </body>

@@ -7,18 +7,14 @@ var clickDataArray = [];
 
 var totalClicks = 0;
 var clickLimit = 25;
-// var image1 = document.getElementById('image1');
-// var image2 = document.getElementById('image2');
-// var image3 = document.getElementById('image3');
 
 function Item(itemName, itemPath){
   this.itemName = itemName;
   this.itemPath = itemPath;
   this.itemNumberClicked = 0;
   this.itemShownTotal = 0;
-  labelArray.push(itemName);
   itemsListArray.push(this);
-  // this.itemNumberClicked = 0;.
+
 }
 var a = new Item ('bag', 'assets/bag.jpg');
 var b = new Item ('banana', 'assets/banana.jpg');
@@ -63,7 +59,6 @@ function randomPicGenerate(){
   image2.alt = currentImgIndexes[1];
   image3.alt = currentImgIndexes[2];
 
-
   imageLeft.itemShownTotal++;
   imageCenter.itemShownTotal++;
   imageRight.itemShownTotal++;
@@ -73,7 +68,7 @@ randomPicGenerate();
 function clickHandle(event){
   randomPicGenerate();
   totalClicks++;
-  var productIndex = this.alt; // get the index of the product clicked
+  var productIndex = this.alt;
   itemsListArray[productIndex].itemNumberClicked++;
 
   if (totalClicks === clickLimit){
@@ -84,6 +79,8 @@ function clickHandle(event){
     productClicks();
   }
 }
+var percentTotal = [];
+
 if (localStorage.newClick){
   var newClickings = JSON.parse(localStorage.newClick);
   for (var i = 0; i < newClickings.length; i++) {
@@ -101,6 +98,8 @@ function productClicks(){
   content.appendChild(ul);
   for (var i = 0; i < itemsListArray.length; i++) {
     clickDataArray.push(itemsListArray[i].itemNumberClicked);
+    labelArray.push(itemsListArray[i].itemName);
+    percentTotal.push(itemsListArray[i].itemShownTotal / itemsListArray[i].itemNumberClicked);
   }
 
   var canvas = document.getElementById('canvas');
