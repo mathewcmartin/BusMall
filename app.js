@@ -1,20 +1,18 @@
 'use strict';
 
+var percentTotal = [];
 var itemsListArray = [];
 var prevImgIndexes = [];
 var labelArray = [];
 var clickDataArray = [];
-
 var totalClicks = 0;
 var clickLimit = 25;
-
 function Item(itemName, itemPath){
   this.itemName = itemName;
   this.itemPath = itemPath;
   this.itemNumberClicked = 0;
   this.itemShownTotal = 0;
   itemsListArray.push(this);
-
 }
 var a = new Item ('bag', 'assets/bag.jpg');
 var b = new Item ('banana', 'assets/banana.jpg');
@@ -70,7 +68,6 @@ function clickHandle(event){
   totalClicks++;
   var productIndex = this.alt;
   itemsListArray[productIndex].itemNumberClicked++;
-
   if (totalClicks === clickLimit){
     localStorage.newClick = JSON.stringify(itemsListArray);
     image1.removeEventListener('click', clickHandle);
@@ -79,15 +76,13 @@ function clickHandle(event){
     productClicks();
   }
 }
-var percentTotal = [];
-
 if (localStorage.newClick){
-  var newClickings = JSON.parse(localStorage.newClick);
-  for (var i = 0; i < newClickings.length; i++) {
-    itemsListArray[i].itemNumberClicked = newClickings[i].itemNumberClicked;
+  var productInfo = JSON.parse(localStorage.newClick);
+  for (var i = 0; i < productInfo.length; i++) {
+    itemsListArray[i].itemNumberClicked = productInfo[i].itemNumberClicked;
+    itemsListArray[i].itemShownTotal = productInfo[i].itemShownTotal;
   }
 }
-
 image1.addEventListener('click', clickHandle);
 image2.addEventListener('click', clickHandle);
 image3.addEventListener('click', clickHandle);
@@ -99,26 +94,40 @@ function productClicks(){
   for (var i = 0; i < itemsListArray.length; i++) {
     clickDataArray.push(itemsListArray[i].itemNumberClicked);
     labelArray.push(itemsListArray[i].itemName);
-    percentTotal.push(itemsListArray[i].itemShownTotal / itemsListArray[i].itemNumberClicked);
+    percentTotal.push((itemsListArray[i].itemNumberClicked / itemsListArray[i].itemShownTotal) * 100);
   }
-
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
-
   var data = {
     labels: labelArray,
     datasets: [{
       label: 'Times Clicked',
-      data: clickDataArray,
-      backgroundColor: 'red'
+      backgroundColor: "rgba(179,181,198,0.2)",
+            borderColor: "rgba(179,181,198,1)",
+            pointBackgroundColor: "rgba(179,181,198,1)",
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgba(179,181,198,1)",
+            data: clickDataArray
+    }, {
+      label: 'Percent Cliciked',
+      backgroundColor: "rgba(255,99,132,0.2)",
+            borderColor: "rgba(255,99,132,1)",
+            pointBackgroundColor: "rgba(255,99,132,1)",
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgba(255,99,132,1)",
+            data: percentTotal
     }]
   };
 
   var myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'radar',
     data: data,
     options: {
+      responsive: true,
       scales: {
+        reverse:true,
         yAxes: [{
           ticks: {
             beginAtZero:true
